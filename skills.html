@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills — Alok Kumar</title>
+  <meta name="description" content="Technical skills, frameworks, tools, and computer science coursework of Alok Kumar." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursor-follower"></div>
+
+  <!-- Noise Overlay -->
+  <div class="noise"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo" data-magnetic>𝘢𝘭𝘬𝘢𝘢𝘳</a>
+    <div class="nav-links">
+      <a href="projects.html" class="nav-link" data-magnetic>Projects</a>
+      <a href="skills.html" class="nav-link active" data-magnetic>Skills</a>
+      <a href="about.html" class="nav-link" data-magnetic>About</a>
+      <a href="play-ground.html" class="nav-link" data-magnetic>Playground</a>
+      <a href="contact.html" class="nav-link" data-magnetic>Contact</a>
+    </div>
+    <button class="nav-menu-btn" id="menu-btn" aria-label="Menu">
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="projects.html" class="mobile-link">Projects</a>
+    <a href="skills.html" class="mobile-link">Skills</a>
+    <a href="about.html" class="mobile-link">About</a>
+    <a href="play-ground.html" class="mobile-link">Playground</a>
+    <a href="contact.html" class="mobile-link">Contact</a>
+  </div>
+
+  <!-- Skills Content -->
+  <main class="section skills-page" style="padding-top: 160px;">
+    <div class="container">
+      <div class="section-label" data-reveal>
+        <span class="label-number">02</span>
+        <span class="label-text">Skills & Expertises</span>
+        <span class="label-line"></span>
+      </div>
+
+      <h1 class="works-title" style="margin-bottom: 24px;" data-reveal>
+        Technical <em class="italic-serif">skills</em> <br/>
+        & developer tools
+      </h1>
+      <p class="works-subtitle" data-reveal>
+        A structured breakdown of core engineering proficiencies, frameworks, database architectures, and key coursework.
+      </p>
+
+      <!-- Skills Cards Grid -->
+      <div class="skills-page-grid">
+        <!-- Languages Card -->
+        <div class="skills-card" data-reveal>
+          <div class="skills-card-title">
+            <span style="color: var(--accent); font-family: var(--mono); font-size: 0.9rem;">01 /</span>
+            Programming Languages
+          </div>
+          <div class="skills-list">
+            <div class="skill-pill"><img src="htmlimg.png" class="skill-icon" alt=""/>C</div>
+            <div class="skill-pill"><img src="htmlimg.png" class="skill-icon" alt=""/>C++</div>
+            <div class="skill-pill">Python</div>
+            <div class="skill-pill"><img src="javascript.png" class="skill-icon" alt=""/>JavaScript</div>
+            <div class="skill-pill">SQL</div>
+          </div>
+        </div>
+
+        <!-- Frameworks Card -->
+        <div class="skills-card" data-reveal>
+          <div class="skills-card-title">
+            <span style="color: var(--accent); font-family: var(--mono); font-size: 0.9rem;">02 /</span>
+            Frameworks & Libraries
+          </div>
+          <div class="skills-list">
+            <div class="skill-pill">React JS</div>
+            <div class="skill-pill">Node JS</div>
+            <div class="skill-pill">Express JS</div>
+            <div class="skill-pill"><img src="cssimg.png" class="skill-icon" alt=""/>Tailwind CSS</div>
+            <div class="skill-pill">Framer Motion</div>
+            <div class="skill-pill">GSAP</div>
+            <div class="skill-pill">Mongoose</div>
+          </div>
+        </div>
+
+        <!-- Developer Tools Card -->
+        <div class="skills-card" data-reveal>
+          <div class="skills-card-title">
+            <span style="color: var(--accent); font-family: var(--mono); font-size: 0.9rem;">03 /</span>
+            Developer Tools
+          </div>
+          <div class="skills-list">
+            <div class="skill-pill">VS Code</div>
+            <div class="skill-pill">Git</div>
+            <div class="skill-pill">GitHub</div>
+            <div class="skill-pill">Linux</div>
+            <div class="skill-pill">Gemini</div>
+            <div class="skill-pill">Claude Code</div>
+            <div class="skill-pill">Antigravity</div>
+            <div class="skill-pill">Cursor</div>
+            <div class="skill-pill">Codex</div>
+          </div>
+        </div>
+
+        <!-- Soft Skills Card -->
+        <div class="skills-card" data-reveal>
+          <div class="skills-card-title">
+            <span style="color: var(--accent); font-family: var(--mono); font-size: 0.9rem;">04 /</span>
+            Professional & Soft Skills
+          </div>
+          <div class="skills-list">
+            <div class="skill-pill">Leadership</div>
+            <div class="skill-pill">Problem Solving</div>
+            <div class="skill-pill">Team Collaboration</div>
+            <div class="skill-pill">Communication</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coursework Section -->
+      <div style="margin-top: 120px; border-top: 1px solid var(--border); padding-top: 80px;">
+        <div class="section-label" data-reveal>
+          <span class="label-number">03</span>
+          <span class="label-text">Academic Coursework</span>
+          <span class="label-line"></span>
+        </div>
+        
+        <h2 style="font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 500; margin-bottom: 16px;" data-reveal>
+          Key Courses Taken
+        </h2>
+        <p style="color: var(--text-muted); max-width: 600px; line-height: 1.6;" data-reveal>
+          Fundamental computer science theoretical principles and mathematics studied at Maulana Azad National Institute of Technology, Bhopal.
+        </p>
+
+        <div class="coursework-grid">
+          <div class="course-card" data-reveal>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 6px;">CS Core</span>
+            <span style="font-weight: 600; font-size: 1rem; color: var(--text);">Data Structures & Algorithms</span>
+          </div>
+          <div class="course-card" data-reveal>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 6px;">CS Core</span>
+            <span style="font-weight: 600; font-size: 1rem; color: var(--text);">Object Oriented Programming</span>
+          </div>
+          <div class="course-card" data-reveal>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 6px;">CS Core</span>
+            <span style="font-weight: 600; font-size: 1rem; color: var(--text);">Database Management System</span>
+          </div>
+          <div class="course-card" data-reveal>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 6px;">CS Core</span>
+            <span style="font-weight: 600; font-size: 1rem; color: var(--text);">Theory of Computation</span>
+          </div>
+          <div class="course-card" data-reveal>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 6px;">CS Core</span>
+            <span style="font-weight: 600; font-size: 1rem; color: var(--text);">Software Engineering</span>
+          </div>
+          <div class="course-card" data-reveal>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 6px;">CS Core</span>
+            <span style="font-weight: 600; font-size: 1rem; color: var(--text);">Computer System Org.</span>
+          </div>
+          <div class="course-card" data-reveal>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 6px;">Math & Business</span>
+            <span style="font-weight: 600; font-size: 1rem; color: var(--text);">Fundamentals of Entrepreneurship</span>
+          </div>
+          <div class="course-card" data-reveal>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 6px;">Math & Business</span>
+            <span style="font-weight: 600; font-size: 1rem; color: var(--text);">Discrete Mathematics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Marquee and Footer at the bottom -->
+  <div style="position: relative; z-index: 2; background: var(--bg); border-top: 1px solid var(--border); margin-top: 120px;">
+    <!-- Marquee -->
+    <div class="marquee-section" style="border-top: none;">
+      <div class="marquee-track">
+        <span class="marquee-item">Developer</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">Problem Solver</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">CSE Student</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">Creative Builder</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">Developer</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">Problem Solver</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">CSE Student</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">Creative Builder</span>
+        <span class="marquee-sep">✦</span>
+      </div>
+    </div>
+
+    <!-- Home Footer (Social Links) -->
+    <footer class="footer home-footer" style="border-top: 1px solid var(--border);">
+      <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; gap: 40px;">
+          <!-- Connect Section -->
+          <div style="display: flex; flex-direction: column; gap: 20px;">
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Connect</span>
+            <div style="display: flex; gap: 24px;">
+              <a href="https://linkedin.com/in/your-profile" target="_blank" style="display: flex; align-items: center; gap: 12px; font-size: 1rem; font-weight: 500; color: var(--text); text-decoration: none;" class="footer-social-link" data-magnetic>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path><circle cx="4" cy="4" r="2"></circle></svg>
+                LinkedIn
+              </a>
+              <a href="https://instagram.com/your-username" target="_blank" style="display: flex; align-items: center; gap: 12px; font-size: 1rem; font-weight: 500; color: var(--text); text-decoration: none;" class="footer-social-link" data-magnetic>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><circle cx="17.5" cy="6.5" r="1.5"></circle></svg>
+                Instagram
+              </a>
+              <a href="mailto:alok@example.com" style="display: flex; align-items: center; gap: 12px; font-size: 1rem; font-weight: 500; color: var(--text); text-decoration: none;" class="footer-social-link" data-magnetic>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"></path></svg>
+                Mail
+              </a>
+              <a href="https://github.com/your-username" target="_blank" style="display: flex; align-items: center; gap: 12px; font-size: 1rem; font-weight: 500; color: var(--text); text-decoration: none;" class="footer-social-link" data-magnetic>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.375 3.375 0 00-.815-2.75 3.521 3.521 0 011.946-1.009 3.56 3.56 0 012.714 1.227 3.467 3.467 0 01.923 2.605v3.43M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.375 3.375 0 00-.815-2.75 3.521 3.521 0 011.946-1.009 3.56 3.56 0 012.714 1.227 3.467 3.467 0 01.923 2.605v3.43m0-3.9a2 2 0 00-2-2 2 2 0 00-2 2m0 0a2 2 0 012 2 2 2 0 012-2m0 0h2m0-2h2"></path></svg>
+                GitHub
+              </a>
+            </div>
+          </div>
+          <!-- Playground Section -->
+          <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 20px;">
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Explore</span>
+            <a href="play-ground.html" style="font-size: 2.5rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.02em;" class="footer-social-link" data-magnetic>Playground ↗</a>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 32px; flex-wrap: wrap; gap: 16px;">
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Just an ordinary developer.</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">From India with love.</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

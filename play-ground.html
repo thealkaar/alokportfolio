@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playground — Alok Kumar</title>
+  <meta name="description" content="Explore my competitive programming profiles and coding achievements across LeetCode, CodeChef, Codeforces, AtCoder, HackerRank, and GitHub." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursor-follower"></div>
+
+  <!-- Noise Overlay -->
+  <div class="noise"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo" data-magnetic>𝘢𝘭𝘬𝘢𝘢𝘳</a>
+    <div class="nav-links">
+      <a href="projects.html" class="nav-link" data-magnetic>Projects</a>
+      <a href="skills.html" class="nav-link" data-magnetic>Skills</a>
+      <a href="about.html" class="nav-link" data-magnetic>About</a>
+      <a href="play-ground.html" class="nav-link active" data-magnetic>Playground</a>
+      <a href="contact.html" class="nav-link" data-magnetic>Contact</a>
+    </div>
+    <button class="nav-menu-btn" id="menu-btn" aria-label="Menu">
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="projects.html" class="mobile-link">Projects</a>
+    <a href="skills.html" class="mobile-link">Skills</a>
+    <a href="about.html" class="mobile-link">About</a>
+    <a href="play-ground.html" class="mobile-link">Playground</a>
+    <a href="contact.html" class="mobile-link">Contact</a>
+  </div>
+
+
+  <!-- Playground - Coding Profiles -->
+  <main style="min-height: 100vh; background: var(--bg); padding: 120px 24px 80px;">
+    <div class="container">
+      <!-- Header -->
+      <div style="margin-bottom: 100px; text-align: center;">
+        <h1 style="font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 20px; letter-spacing: -0.03em; background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Competitive Profiles</h1>
+        <p style="font-size: 1.1rem; color: var(--text-muted); max-width: 600px; line-height: 1.8; margin: 0 auto;">
+          Explore my journey across leading competitive programming and coding platforms. Track my progress and achievements.
+        </p>
+      </div>
+
+      <!-- Profiles Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; margin-bottom: 100px;">
+        
+        <!-- LeetCode -->
+        <a href="https://leetcode.com/your-username" target="_blank" style="text-decoration: none;" data-magnetic>
+          <div style="
+            background: linear-gradient(135deg, rgba(255,193,7,0.08) 0%, rgba(255,193,7,0.03) 100%);
+            border: 1px solid rgba(255,193,7,0.25);
+            border-radius: 16px;
+            padding: 40px 32px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+          " onmouseover="this.style.borderColor='rgba(255,193,7,0.6)'; this.style.background='linear-gradient(135deg, rgba(255,193,7,0.12) 0%, rgba(255,193,7,0.05) 100%)'; this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 40px rgba(255,193,7,0.15)'" onmouseout="this.style.borderColor='rgba(255,193,7,0.25)'; this.style.background='linear-gradient(135deg, rgba(255,193,7,0.08) 0%, rgba(255,193,7,0.03) 100%)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+            <div>
+              <div style="width: 56px; height: 56px; background: linear-gradient(135deg, rgba(255,193,7,0.3), rgba(255,193,7,0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: rgba(255,193,7,0.9);">
+                  <polyline points="21 8 21 21 3 21 3 8"></polyline>
+                  <line x1="1" y1="8" x2="23" y2="8"></line>
+                  <path d="M10 12v8M14 12v8M6 12h12"></path>
+                </svg>
+              </div>
+              <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 10px; color: var(--text); letter-spacing: -0.01em;">LeetCode</h3>
+              <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Master data structures & algorithms through 2000+ curated problems</p>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 24px;">
+              <span style="background: rgba(255,193,7,0.15); color: rgba(255,193,7,0.9); padding: 8px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(255,193,7,0.3);">800+ Problems</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- CodeChef -->
+        <a href="https://www.codechef.com/users/your-username" target="_blank" style="text-decoration: none;" data-magnetic>
+          <div style="
+            background: linear-gradient(135deg, rgba(101,152,255,0.08) 0%, rgba(101,152,255,0.03) 100%);
+            border: 1px solid rgba(101,152,255,0.25);
+            border-radius: 16px;
+            padding: 40px 32px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+          " onmouseover="this.style.borderColor='rgba(101,152,255,0.6)'; this.style.background='linear-gradient(135deg, rgba(101,152,255,0.12) 0%, rgba(101,152,255,0.05) 100%)'; this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 40px rgba(101,152,255,0.15)'" onmouseout="this.style.borderColor='rgba(101,152,255,0.25)'; this.style.background='linear-gradient(135deg, rgba(101,152,255,0.08) 0%, rgba(101,152,255,0.03) 100%)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+            <div>
+              <div style="width: 56px; height: 56px; background: linear-gradient(135deg, rgba(101,152,255,0.3), rgba(101,152,255,0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: rgba(101,152,255,0.9);">
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <path d="M12 7v5l3 3"></path>
+                </svg>
+              </div>
+              <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 10px; color: var(--text); letter-spacing: -0.01em;">CodeChef</h3>
+              <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Participate in monthly contests and cooking competitions with global programmers</p>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 24px;">
+              <span style="background: rgba(101,152,255,0.15); color: rgba(101,152,255,0.9); padding: 8px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(101,152,255,0.3);">50+ Contests</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Codeforces -->
+        <a href="https://codeforces.com/profile/your-username" target="_blank" style="text-decoration: none;" data-magnetic>
+          <div style="
+            background: linear-gradient(135deg, rgba(239,108,77,0.08) 0%, rgba(239,108,77,0.03) 100%);
+            border: 1px solid rgba(239,108,77,0.25);
+            border-radius: 16px;
+            padding: 40px 32px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+          " onmouseover="this.style.borderColor='rgba(239,108,77,0.6)'; this.style.background='linear-gradient(135deg, rgba(239,108,77,0.12) 0%, rgba(239,108,77,0.05) 100%)'; this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 40px rgba(239,108,77,0.15)'" onmouseout="this.style.borderColor='rgba(239,108,77,0.25)'; this.style.background='linear-gradient(135deg, rgba(239,108,77,0.08) 0%, rgba(239,108,77,0.03) 100%)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+            <div>
+              <div style="width: 56px; height: 56px; background: linear-gradient(135deg, rgba(239,108,77,0.3), rgba(239,108,77,0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: rgba(239,108,77,0.9);">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </div>
+              <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 10px; color: var(--text); letter-spacing: -0.01em;">Codeforces</h3>
+              <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Real-time programming contests with challenging problems and instant ratings</p>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 24px;">
+              <span style="background: rgba(239,108,77,0.15); color: rgba(239,108,77,0.9); padding: 8px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(239,108,77,0.3);">Expert Rating</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- AtCoder -->
+        <a href="https://atcoder.jp/users/your-username" target="_blank" style="text-decoration: none;" data-magnetic>
+          <div style="
+            background: linear-gradient(135deg, rgba(0,153,204,0.08) 0%, rgba(0,153,204,0.03) 100%);
+            border: 1px solid rgba(0,153,204,0.25);
+            border-radius: 16px;
+            padding: 40px 32px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+          " onmouseover="this.style.borderColor='rgba(0,153,204,0.6)'; this.style.background='linear-gradient(135deg, rgba(0,153,204,0.12) 0%, rgba(0,153,204,0.05) 100%)'; this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 40px rgba(0,153,204,0.15)'" onmouseout="this.style.borderColor='rgba(0,153,204,0.25)'; this.style.background='linear-gradient(135deg, rgba(0,153,204,0.08) 0%, rgba(0,153,204,0.03) 100%)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+            <div>
+              <div style="width: 56px; height: 56px; background: linear-gradient(135deg, rgba(0,153,204,0.3), rgba(0,153,204,0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: rgba(0,153,204,0.9);">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+              </div>
+              <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 10px; color: var(--text); letter-spacing: -0.01em;">AtCoder</h3>
+              <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Japanese competitive programming platform with educational algorithm contests</p>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 24px;">
+              <span style="background: rgba(0,153,204,0.15); color: rgba(0,153,204,0.9); padding: 8px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(0,153,204,0.3);">Algorithm Focus</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- HackerRank -->
+        <a href="https://www.hackerrank.com/your-username" target="_blank" style="text-decoration: none;" data-magnetic>
+          <div style="
+            background: linear-gradient(135deg, rgba(50,200,100,0.08) 0%, rgba(50,200,100,0.03) 100%);
+            border: 1px solid rgba(50,200,100,0.25);
+            border-radius: 16px;
+            padding: 40px 32px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+          " onmouseover="this.style.borderColor='rgba(50,200,100,0.6)'; this.style.background='linear-gradient(135deg, rgba(50,200,100,0.12) 0%, rgba(50,200,100,0.05) 100%)'; this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 40px rgba(50,200,100,0.15)'" onmouseout="this.style.borderColor='rgba(50,200,100,0.25)'; this.style.background='linear-gradient(135deg, rgba(50,200,100,0.08) 0%, rgba(50,200,100,0.03) 100%)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+            <div>
+              <div style="width: 56px; height: 56px; background: linear-gradient(135deg, rgba(50,200,100,0.3), rgba(50,200,100,0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: rgba(50,200,100,0.9);">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                </svg>
+              </div>
+              <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 10px; color: var(--text); letter-spacing: -0.01em;">HackerRank</h3>
+              <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Skill certifications and structured challenges across multiple programming domains</p>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 24px;">
+              <span style="background: rgba(50,200,100,0.15); color: rgba(50,200,100,0.9); padding: 8px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(50,200,100,0.3);">Certifications</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- GitHub -->
+        <a href="https://github.com/your-username" target="_blank" style="text-decoration: none;" data-magnetic>
+          <div style="
+            background: linear-gradient(135deg, rgba(201,243,29,0.08) 0%, rgba(201,243,29,0.03) 100%);
+            border: 1px solid rgba(201,243,29,0.25);
+            border-radius: 16px;
+            padding: 40px 32px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+          " onmouseover="this.style.borderColor='rgba(201,243,29,0.6)'; this.style.background='linear-gradient(135deg, rgba(201,243,29,0.12) 0%, rgba(201,243,29,0.05) 100%)'; this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 40px rgba(201,243,29,0.15)'" onmouseout="this.style.borderColor='rgba(201,243,29,0.25)'; this.style.background='linear-gradient(135deg, rgba(201,243,29,0.08) 0%, rgba(201,243,29,0.03) 100%)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+            <div>
+              <div style="width: 56px; height: 56px; background: linear-gradient(135deg, rgba(201,243,29,0.3), rgba(201,243,29,0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent);">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.375 3.375 0 0 0-.815-2.75 3.521 3.521 0 0 1 1.946-1.009 3.56 3.56 0 0 1 2.714 1.227 3.467 3.467 0 0 1 .923 2.605v3.43"></path>
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.375 3.375 0 0 0-.815-2.75 3.521 3.521 0 0 1 1.946-1.009 3.56 3.56 0 0 1 2.714 1.227 3.467 3.467 0 0 1 .923 2.605v3.43m0-3.9a2 2 0 0 0-2-2 2 2 0 0 0-2 2m0 0a2 2 0 0 1 2 2 2 2 0 0 1 2-2m0 0h2m0-2h2"></path>
+                </svg>
+              </div>
+              <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 10px; color: var(--text); letter-spacing: -0.01em;">GitHub</h3>
+              <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Open source projects, repositories, and collaborative development across the community</p>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 24px;">
+              <span style="background: rgba(201,243,29,0.15); color: var(--accent); padding: 8px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(201,243,29,0.3);">Open Source</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- CTA Section -->
+      <div style="
+        background: linear-gradient(135deg, rgba(201,243,29,0.1) 0%, rgba(201,243,29,0.04) 100%);
+        border: 1px solid rgba(201,243,29,0.3);
+        border-radius: 20px;
+        padding: 60px 40px;
+        text-align: center;
+      ">
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 16px; color: var(--text); letter-spacing: -0.02em;">Track My Growth</h2>
+        <p style="font-size: 1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 32px; line-height: 1.7;">
+          Connect with me on any platform to follow my competitive programming journey, see live contest results, and collaborate on exciting projects.
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <a href="https://github.com/your-username" target="_blank" style="padding: 12px 24px; background: var(--accent); color: var(--bg); border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 25px rgba(201,243,29,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+            View On GitHub ↗
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer home-footer" style="border-top: 1px solid var(--border);">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; gap: 40px;">
+        <!-- Connect Section -->
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Connect</span>
+          <div style="display: flex; gap: 24px;">
+            <a href="https://linkedin.com/in/your-profile" target="_blank" style="display: flex; align-items: center; gap: 12px; font-size: 1rem; font-weight: 500; color: var(--text); text-decoration: none;" class="footer-social-link" data-magnetic>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path><circle cx="4" cy="4" r="2"></circle></svg>
+              LinkedIn
+            </a>
+            <a href="https://instagram.com/your-username" target="_blank" style="display: flex; align-items: center; gap: 12px; font-size: 1rem; font-weight: 500; color: var(--text); text-decoration: none;" class="footer-social-link" data-magnetic>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><circle cx="17.5" cy="6.5" r="1.5"></circle></svg>
+              Instagram
+            </a>
+            <a href="mailto:alok@example.com" style="display: flex; align-items: center; gap: 12px; font-size: 1rem; font-weight: 500; color: var(--text); text-decoration: none;" class="footer-social-link" data-magnetic>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"></path></svg>
+              Mail
+            </a>
+            <a href="https://github.com/your-username" target="_blank" style="display: flex; align-items: center; gap: 12px; font-size: 1rem; font-weight: 500; color: var(--text); text-decoration: none;" class="footer-social-link" data-magnetic>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.375 3.375 0 00-.815-2.75 3.521 3.521 0 011.946-1.009 3.56 3.56 0 012.714 1.227 3.467 3.467 0 01.923 2.605v3.43M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.375 3.375 0 00-.815-2.75 3.521 3.521 0 011.946-1.009 3.56 3.56 0 012.714 1.227 3.467 3.467 0 01.923 2.605v3.43m0-3.9a2 2 0 00-2-2 2 2 0 00-2 2m0 0a2 2 0 012 2 2 2 0 012-2m0 0h2m0-2h2"></path></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+        <!-- Playground Section -->
+        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 20px;">
+          <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Explore</span>
+          <a href="play-ground.html" style="font-size: 2.5rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.02em;" class="footer-social-link" data-magnetic>Playground ↗</a>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 32px; flex-wrap: wrap; gap: 16px;">
+        <span style="font-size: 0.85rem; color: var(--text-muted);">Just an ordinary developer.</span>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">From India with love.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

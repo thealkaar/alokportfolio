@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Alok Kumar</title>
+  <meta name="description" content="Academic details, leadership experience, and achievements of Alok Kumar, B.Tech CSE student." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursor-follower"></div>
+
+  <!-- Noise Overlay -->
+  <div class="noise"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo" data-magnetic>𝘢𝘭𝘬𝘢𝘢𝘳</a>
+    <div class="nav-links">
+      <a href="projects.html" class="nav-link" data-magnetic>Projects</a>
+      <a href="skills.html" class="nav-link" data-magnetic>Skills</a>
+      <a href="about.html" class="nav-link active" data-magnetic>About</a>
+      <a href="play-ground.html" class="nav-link" data-magnetic>Playground</a>
+      <a href="contact.html" class="nav-link" data-magnetic>Contact</a>
+    </div>
+    <button class="nav-menu-btn" id="menu-btn" aria-label="Menu">
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="projects.html" class="mobile-link">Projects</a>
+    <a href="skills.html" class="mobile-link">Skills</a>
+    <a href="about.html" class="mobile-link">About</a>
+    <a href="play-ground.html" class="mobile-link">Playground</a>
+    <a href="contact.html" class="mobile-link">Contact</a>
+  </div>
+
+  <!-- About Content -->
+  <main class="section about" style="padding-top: 160px;">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-left" data-reveal>
+          <div class="about-photo-wrapper" style="border-radius: 300px 300px 20px 20px;">
+            <img src="alokimg.png" alt="Alok Kumar" class="about-photo" />
+            <div class="about-photo-overlay"></div>
+          </div>
+        </div>
+        <div class="about-right">
+          <h1 class="about-heading" data-reveal style="font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.2; margin-bottom: 40px;">
+            Computer Science & Engineering student at MANIT Bhopal. A builder of digital <em class="italic-serif">landscapes.</em>
+          </h1>
+          
+          <div style="display: flex; flex-direction: column; gap: 24px;">
+            <p class="about-text" data-reveal>
+              I pursue Computer Science because building functional systems that matter is my primary language. From low-level algorithms to high-performance web frontends, I strive for a craftsman's precision in every component.
+            </p>
+            <p class="about-text" data-reveal>
+              Outside of academics, I lead student society teams, manage hackathon workgroups, and write shayari.
+            </p>
+          </div>
+
+          <div class="about-stats" data-reveal>
+            <div class="stat">
+              <span class="stat-number" data-count="15">0</span><span class="stat-plus">+</span>
+              <span class="stat-label">Projects Built</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-count="5">0</span><span class="stat-plus">+</span>
+              <span class="stat-label">Hackathons</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-count="1000">0</span><span class="stat-plus">+</span>
+              <span class="stat-label">DSA Solved</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education Timeline -->
+      <div style="margin-top: 120px; border-top: 1px solid var(--border); padding-top: 80px;">
+        <div class="section-label" data-reveal>
+          <span class="label-number">02</span>
+          <span class="label-text">Academic Timeline</span>
+          <span class="label-line"></span>
+        </div>
+        <h2 style="font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 500; margin-bottom: 40px;" data-reveal>
+          Education
+        </h2>
+        
+        <div style="display: flex; flex-direction: column; gap: 40px;">
+          <!-- College -->
+          <div style="display: grid; grid-template-columns: 120px 1fr auto; gap: 24px; border-bottom: 1px solid var(--border); padding-bottom: 30px;" data-reveal>
+            <div style="font-family: var(--mono); color: var(--accent); font-size: 0.9rem;">2024 — 2026</div>
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 8px;">Maulana Azad National Institute of Technology, Bhopal</h3>
+              <p style="color: var(--text-muted); font-size: 0.95rem;">B.Tech Computer Science & Engineering</p>
+            </div>
+            <div style="font-weight: 600; color: var(--accent); font-size: 1.1rem;">9.04 CGPA</div>
+          </div>
+
+          <!-- XII -->
+          <div style="display: grid; grid-template-columns: 120px 1fr auto; gap: 24px; border-bottom: 1px solid var(--border); padding-bottom: 30px;" data-reveal>
+            <div style="font-family: var(--mono); color: var(--text-muted); font-size: 0.9rem;">2022</div>
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 8px;">Red Rose Education Centre, Farrukhabad</h3>
+              <p style="color: var(--text-muted); font-size: 0.95rem;">CBSE Board (Class XII)</p>
+            </div>
+            <div style="font-weight: 600; color: var(--text-muted); font-size: 1.1rem;">92.00%</div>
+          </div>
+
+          <!-- X -->
+          <div style="display: grid; grid-template-columns: 120px 1fr auto; gap: 24px;" data-reveal>
+            <div style="font-family: var(--mono); color: var(--text-muted); font-size: 0.9rem;">2020</div>
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 8px;">Red Rose Education Centre, Farrukhabad</h3>
+              <p style="color: var(--text-muted); font-size: 0.95rem;">CBSE Board (Class X)</p>
+            </div>
+            <div style="font-weight: 600; color: var(--text-muted); font-size: 1.1rem;">93.00%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience & Leadership -->
+      <div style="margin-top: 120px; border-top: 1px solid var(--border); padding-top: 80px;">
+        <div class="section-label" data-reveal>
+          <span class="label-number">03</span>
+          <span class="label-text">Responsibility</span>
+          <span class="label-line"></span>
+        </div>
+        <h2 style="font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 500; margin-bottom: 40px;" data-reveal>
+          Positions of Responsibility
+        </h2>
+
+        <div style="display: flex; flex-direction: column; gap: 40px;">
+          <!-- EVOLVE -->
+          <div style="display: grid; grid-template-columns: 120px 1fr; gap: 24px; border-bottom: 1px solid var(--border); padding-bottom: 30px;" data-reveal>
+            <div style="font-family: var(--mono); color: var(--accent); font-size: 0.9rem;">2026</div>
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 6px;">Technical Executive</h3>
+              <p style="font-family: var(--mono); font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 16px;">EVOLVE Society, MANIT Bhopal</p>
+              <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+                <li>• Managed **Vidyut '26**, the largest EV Expo in Central India.</li>
+                <li>• Oversaw the tech configurations for **Tech Track** case study competition.</li>
+                <li>• Programmed interactive custom web games for the event **Electrospark**.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Class Representative -->
+          <div style="display: grid; grid-template-columns: 120px 1fr; gap: 24px;" data-reveal>
+            <div style="font-family: var(--mono); color: var(--text-muted); font-size: 0.9rem;">2024 — 2025</div>
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 6px;">Class Representative</h3>
+              <p style="font-family: var(--mono); font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 16px;">MANIT Bhopal</p>
+              <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+                <li>• Facilitated academic/administrative communication channels between department faculty and students.</li>
+                <li>• Coordinated class-wide schedules, events, and resources.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div style="margin-top: 120px; border-top: 1px solid var(--border); padding-top: 80px; margin-bottom: 80px;">
+        <div class="section-label" data-reveal>
+          <span class="label-number">04</span>
+          <span class="label-text">Recognitions</span>
+          <span class="label-line"></span>
+        </div>
+        <h2 style="font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 500; margin-bottom: 40px;" data-reveal>
+          Achievements
+        </h2>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;" data-reveal>
+          <div class="skills-card">
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--accent); display: block; margin-bottom: 12px;">2025</span>
+            <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 8px;">Branch Upgrade (Electrical → CSE)</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">Awarded branch upgrade to Computer Science & Engineering at MANIT Bhopal based on exceptional academic score during first year.</p>
+          </div>
+
+          <div class="skills-card">
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 12px;">2022</span>
+            <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 8px;">CBSE Academic Excellence Award</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">Awarded for achieving top-rank academic status consistently throughout school education (Class 1st to 12th).</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Marquee and Footer at the bottom -->
+  <div style="position: relative; z-index: 2; background: var(--bg); border-top: 1px solid var(--border);">
+    <!-- Marquee -->
+    <div class="marquee-section" style="border-top: none;">
+      <div class="marquee-track">
+        <span class="marquee-item">Developer</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">Problem Solver</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">CSE Student</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">Creative Builder</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">Developer</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">Problem Solver</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">CSE Student</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">Creative Builder</span>
+        <span class="marquee-sep">✦</span>
+      </div>
+    </div>
+
+    <!-- Home Footer (Social Links) -->
+    <footer class="footer home-footer" style="border-top: 1px solid var(--border);">
+      <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; gap: 40px;">
+          <!-- Connect Section -->
+          <div style="display: flex; flex-direction: column; gap: 20px;">
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Connect</span>
+            <div style="display: flex; gap: 24px;">
+              <a href="https://linkedin.com/in/your-profile" target="_blank" style="display: flex; align-items: center; gap: 12px; font-size: 1rem; font-weight: 500; color: var(--text); text-decoration: none;" class="footer-social-link" data-magnetic>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path><circle cx="4" cy="4" r="2"></circle></svg>
+                LinkedIn
+              </a>
+              <a href="https://instagram.com/your-username" target="_blank" style="display: flex; align-items: center; gap: 12px; font-size: 1rem; font-weight: 500; color: var(--text); text-decoration: none;" class="footer-social-link" data-magnetic>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><circle cx="17.5" cy="6.5" r="1.5"></circle></svg>
+                Instagram
+              </a>
+              <a href="mailto:alok@example.com" style="display: flex; align-items: center; gap: 12px; font-size: 1rem; font-weight: 500; color: var(--text); text-decoration: none;" class="footer-social-link" data-magnetic>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"></path></svg>
+                Mail
+              </a>
+              <a href="https://github.com/your-username" target="_blank" style="display: flex; align-items: center; gap: 12px; font-size: 1rem; font-weight: 500; color: var(--text); text-decoration: none;" class="footer-social-link" data-magnetic>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.375 3.375 0 00-.815-2.75 3.521 3.521 0 011.946-1.009 3.56 3.56 0 012.714 1.227 3.467 3.467 0 01.923 2.605v3.43M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.375 3.375 0 00-.815-2.75 3.521 3.521 0 011.946-1.009 3.56 3.56 0 012.714 1.227 3.467 3.467 0 01.923 2.605v3.43m0-3.9a2 2 0 00-2-2 2 2 0 00-2 2m0 0a2 2 0 012 2 2 2 0 012-2m0 0h2m0-2h2"></path></svg>
+                GitHub
+              </a>
+            </div>
+          </div>
+          <!-- Playground Section -->
+          <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 20px;">
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Explore</span>
+            <a href="play-ground.html" style="font-size: 2.5rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.02em;" class="footer-social-link" data-magnetic>Playground ↗</a>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 32px; flex-wrap: wrap; gap: 16px;">
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Just an ordinary developer.</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">From India with love.</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
