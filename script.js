@@ -52,16 +52,16 @@ document.addEventListener('mousemove', (e) => {
 });
 
 function animateCursor() {
-  followerX += (mouseX - followerX) * 0.12;
-  followerY += (mouseY - followerY) * 0.12;
+  followerX += (mouseX - followerX) * 0.18;
+  followerY += (mouseY - followerY) * 0.18;
   if (follower) {
     follower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px)`;
   }
 
   // Cursor media preview inertia (works page)
   if (cursorMedia && cursorMedia.classList.contains('active')) {
-    mediaFollowerX += (mouseX - mediaFollowerX) * 0.08;
-    mediaFollowerY += (mouseY - mediaFollowerY) * 0.08;
+    mediaFollowerX += (mouseX - mediaFollowerX) * 0.12;
+    mediaFollowerY += (mouseY - mediaFollowerY) * 0.12;
     const deltaX = mouseX - mediaFollowerX;
     const rotateVal = gsap.utils.clamp(-15, 15, deltaX * 0.08);
     cursorMedia.style.transform = `translate(${mediaFollowerX - 210}px, ${mediaFollowerY - 130}px) rotate(${rotateVal}deg)`;
@@ -130,7 +130,7 @@ if (canvas3D) {
   const ctx = canvas3D.getContext('2d');
 
   // ── Frame image paths (sorted by rotation angle: 0° → 360°) ──
-  const frameFiles = [
+  let frameFiles = [
     // ─── 0° FRONT (dead center) ───
     'public/Frontal_view_of_subject_2K_202607022247.jpeg',
     'public/Frontal_view_subject_photography_2K_202607022246.jpeg',
@@ -181,6 +181,47 @@ if (canvas3D) {
     'public/Opposite_front-angled_view_subject_2K_202607022246.jpeg',
   ];
 
+  frameFiles = [
+    // Front-facing frames first, then a gradual clockwise 360-degree turn.
+    'public/Frontal_view_of_subject_2K_202607022247.jpeg',
+    'public/Frontal_view_subject_photography_2K_202607022246.jpeg',
+    'public/Frontal_view_of_subject_2K_202607022303.jpeg',
+    'public/Frontal_view_subject_photography_2K_202607022304.jpeg',
+    'public/Front_view_of_subject_2K_202607022304.jpeg',
+    'public/Front_view_of_subject_2K_202607022304 (1).jpeg',
+    'public/View_of_subject_36_degrees_202607022247.jpeg',
+    'public/Three-quarters_view_portfolio_shot_2K_202607022247.jpeg',
+    'public/Angled_view_of_subject_2K_202607022246.jpeg',
+    'public/Angled_view_of_subject_2K_202607022246 (1).jpeg',
+    'public/Angled_view_of_subject_2K_202607022246 (2).jpeg',
+    'public/Angled_view_of_subject_2K_202607022247.jpeg',
+    'public/Angled_view_of_subject_2K_202607022302.jpeg',
+    'public/Angled_view_of_subject_2K_202607022302 (1).jpeg',
+    'public/Angled_view_of_subject_2K_202607022302 (2).jpeg',
+    'public/Angled_view_of_subject_2K_202607022303.jpeg',
+    'public/Angled_view_of_subject_2K_202607022303 (1).jpeg',
+    'public/Angled_view_of_subject_2K_202607022303 (2).jpeg',
+    'public/Side-angled_view_of_subject_2K_202607022246.jpeg',
+    'public/Side_profile_view_subject_2K_202607022247.jpeg',
+    'public/Side_view_subject_90_degrees_202607022303.jpeg',
+    'public/Side_view_of_subject_2K_202607022304.jpeg',
+    'public/Back-angled_view_of_subject_2K_202607022246.jpeg',
+    'public/Back-angled_view_of_subject_2K_202607022247.jpeg',
+    'public/Back-angled_view_of_subject_2K_202607022247 (1).jpeg',
+    'public/Back_view_subject_144_degrees_202607022304.jpeg',
+    'public/Back_view_of_subject_2K_202607022247.jpeg',
+    'public/Back_view_of_subject_2K_202607022303.jpeg',
+    'public/Back_view_of_subject_2K_202607022303 (1).jpeg',
+    'public/View_from_behind_subject_2K_202607022304.jpeg',
+    'public/Back_view_of_subject_2K_202607022304.jpeg',
+    'public/Back_view_of_subject_2K_202607022304 (1).jpeg',
+    'public/Opposite_side_view_subject_2K_202607022246.jpeg',
+    'public/Opposite_front-angled_view_subject_2K_202607022246.jpeg',
+    'public/Front_view_subject_288_rotation_202607022304.jpeg',
+    'public/Frontal_view_subject_photography_2K_202607022246.jpeg',
+    'public/Frontal_view_of_subject_2K_202607022247.jpeg',
+  ];
+
   const frameCount = frameFiles.length;
   const images = [];
   let imagesLoaded = 0;
@@ -194,15 +235,12 @@ if (canvas3D) {
     canvas3D.height = window.innerHeight * dpr;
     canvas3D.style.width = window.innerWidth + 'px';
     canvas3D.style.height = window.innerHeight + 'px';
-    ctx.scale(dpr, dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     renderFrame(currentFrameFloat);
   }
 
   // ── Draw a single image cover-fit ──
-  function drawImageCover(img, alpha) {
-    if (!img || !img.complete) return;
-    const canvasW = window.innerWidth;
-    const canvasH = window.innerHeight;
+  function getCoverRect(img, canvasW, canvasH) {
     const imgRatio = img.naturalWidth / img.naturalHeight;
     const canvasRatio = canvasW / canvasH;
     let drawW, drawH, drawX, drawY;
@@ -217,6 +255,43 @@ if (canvas3D) {
       drawX = 0;
       drawY = (canvasH - drawH) / 2;
     }
+    return { drawX, drawY, drawW, drawH };
+  }
+
+  function getContainRect(img, canvasW, canvasH) {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const maxW = isMobile ? canvasW * 1.12 : canvasW;
+    const maxH = isMobile ? canvasH * 0.68 : canvasH;
+    const scale = Math.min(maxW / img.naturalWidth, maxH / img.naturalHeight);
+    const drawW = img.naturalWidth * scale;
+    const drawH = img.naturalHeight * scale;
+    const drawX = (canvasW - drawW) / 2;
+    const drawY = isMobile ? canvasH * 0.14 : (canvasH - drawH) / 2;
+    return { drawX, drawY, drawW, drawH };
+  }
+
+  function drawImageCover(img, alpha) {
+    if (!img || !img.complete) return;
+    const canvasW = window.innerWidth;
+    const canvasH = window.innerHeight;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    if (isMobile) {
+      const bg = getCoverRect(img, canvasW, canvasH);
+      ctx.save();
+      ctx.globalAlpha = alpha * 0.42;
+      ctx.filter = 'blur(18px) brightness(0.72) saturate(1.05)';
+      ctx.drawImage(img, bg.drawX - 24, bg.drawY - 24, bg.drawW + 48, bg.drawH + 48);
+      ctx.restore();
+
+      const fg = getContainRect(img, canvasW, canvasH);
+      ctx.globalAlpha = alpha;
+      ctx.drawImage(img, fg.drawX, fg.drawY, fg.drawW, fg.drawH);
+      ctx.globalAlpha = 1.0;
+      return;
+    }
+
+    const { drawX, drawY, drawW, drawH } = getCoverRect(img, canvasW, canvasH);
     ctx.globalAlpha = alpha;
     ctx.drawImage(img, drawX, drawY, drawW, drawH);
     ctx.globalAlpha = 1.0;
@@ -315,7 +390,7 @@ if (canvas3D) {
     const scrollSections = gsap.utils.toArray('.scroll-section');
     // Calculate total scroll distance for smooth animation
     // Using fixed viewport height multiplier to show all frames smoothly
-    const totalScrollHeight = window.innerHeight * 6;
+    const totalScrollHeight = window.innerHeight * 7.5;
 
     gsap.to({ frame: 0 }, {
       frame: frameCount - 1,
@@ -324,7 +399,7 @@ if (canvas3D) {
         trigger: 'body',
         start: 'top top',
         end: () => '+=' + totalScrollHeight,
-        scrub: 0.05, // faster, snappier response
+        scrub: 0.08,
         pin: false,
       },
       onUpdate: function () {
@@ -518,6 +593,49 @@ document.querySelectorAll('.project-item').forEach(item => {
 });
 
 // ── Marquee speed change on scroll ──
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+if (!reduceMotion && canHover) {
+  const tiltTargets = document.querySelectorAll('.skills-card, .course-card, .project-item, .contact-link');
+  tiltTargets.forEach((el) => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const relX = (e.clientX - rect.left) / rect.width - 0.5;
+      const relY = (e.clientY - rect.top) / rect.height - 0.5;
+      gsap.to(el, {
+        rotateX: relY * -4,
+        rotateY: relX * 5,
+        y: -4,
+        duration: 0.35,
+        ease: 'power2.out',
+        transformPerspective: 900,
+        transformOrigin: 'center',
+      });
+    });
+
+    el.addEventListener('mouseleave', () => {
+      gsap.to(el, {
+        rotateX: 0,
+        rotateY: 0,
+        y: 0,
+        duration: 0.7,
+        ease: 'elastic.out(1, 0.55)',
+        clearProps: 'transform',
+      });
+    });
+  });
+
+  document.querySelectorAll('.skill-pill, .footer-social-link, .mobile-link').forEach((el) => {
+    el.addEventListener('mouseenter', () => {
+      gsap.to(el, { y: -3, scale: 1.035, duration: 0.28, ease: 'power3.out' });
+    });
+    el.addEventListener('mouseleave', () => {
+      gsap.to(el, { y: 0, scale: 1, duration: 0.45, ease: 'elastic.out(1, 0.55)' });
+    });
+  });
+}
+
 if (document.querySelector('.marquee-section')) {
   ScrollTrigger.create({
     trigger: '.marquee-section',
