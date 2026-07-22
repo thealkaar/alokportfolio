@@ -407,6 +407,9 @@ if (canvas3D) {
 
       // ── HERO SECTION (INDEX 0) SPECIAL HANDLING ──
       if (i === 0) {
+        // Overrides original hidden CSS configurations instantly on boot
+        gsap.set([title, desc].filter(Boolean), { opacity: 1, y: 0 });
+
         if (title) {
           gsap.to(title, {
             opacity: 0,
