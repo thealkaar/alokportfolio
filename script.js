@@ -182,7 +182,6 @@ if (canvas3D) {
   ];
 
   frameFiles = [
-    // Front-facing frames first, then a gradual clockwise 360-degree turn.
     'public/Frontal_view_of_subject_2K_202607022247.jpeg',
     'public/Frontal_view_subject_photography_2K_202607022246.jpeg',
     'public/Frontal_view_of_subject_2K_202607022303.jpeg',
@@ -226,7 +225,7 @@ if (canvas3D) {
   const images = [];
   let imagesLoaded = 0;
   let currentFrameIndex = 0;
-  let currentFrameFloat = 0; // fractional frame for smooth blending
+  let currentFrameFloat = 0;
 
   // ── Canvas sizing (retina-aware) ──
   function resizeCanvas() {
@@ -305,12 +304,10 @@ if (canvas3D) {
 
     const floorIdx = Math.floor(frameFloat);
     const ceilIdx = Math.min(floorIdx + 1, frameCount - 1);
-    const blend = frameFloat - floorIdx; // 0.0 – 1.0
+    const blend = frameFloat - floorIdx;
 
-    // Draw base frame at full opacity
     drawImageCover(images[floorIdx], 1.0);
 
-    // Blend next frame on top if between two frames
     if (blend > 0.01 && ceilIdx !== floorIdx) {
       drawImageCover(images[ceilIdx], blend);
     }
@@ -327,12 +324,9 @@ if (canvas3D) {
         img.src = src;
         img.onload = () => {
           imagesLoaded++;
-          // Update loader counter with real image progress
           const progress = Math.floor((imagesLoaded / frameCount) * 100);
           if (loaderCounter) loaderCounter.textContent = progress;
-          if (imagesLoaded === frameCount) {
-            resolve();
-          }
+          if (imagesLoaded === frameCount) resolve();
         };
         img.onerror = () => {
           console.warn('Failed to load frame:', src);
@@ -351,10 +345,8 @@ if (canvas3D) {
 
     await preloadImages();
 
-    // Draw initial frame
     renderFrame(0);
 
-    // Dismiss loader
     if (loader) {
       loader.classList.add('done');
       setTimeout(() => {
@@ -366,7 +358,7 @@ if (canvas3D) {
     }
   }
 
-  // ── ScrollTrigger: scrub frame index across full page scroll ──
+  // ── SCROLL SECTIONS ENGINE ──────────────────────────
   function animateScrollSections() {
     // Nav entrance
     gsap.from('.nav', { y: -40, opacity: 0, duration: 0.8, ease: 'power4.out' });
@@ -386,10 +378,8 @@ if (canvas3D) {
       });
     }
 
-    // Main frame scrubber — maps scroll progress to fractional frame index
+    // Main frame scrubber
     const scrollSections = gsap.utils.toArray('.scroll-section');
-    // Calculate total scroll distance for smooth animation
-    // Using fixed viewport height multiplier to show all frames smoothly
     const totalScrollHeight = window.innerHeight * 7.5;
 
     gsap.to({ frame: 0 }, {
@@ -415,8 +405,41 @@ if (canvas3D) {
       const title = section.querySelector('.scroll-section-title');
       const desc = section.querySelector('.scroll-section-desc');
 
+      // ── HERO SECTION (INDEX 0) SPECIAL HANDLING ──
+      if (i === 0) {
+        if (title) {
+          gsap.to(title, {
+            opacity: 0,
+            y: -30,
+            duration: 0.5,
+            ease: 'power2.in',
+            scrollTrigger: {
+              trigger: section,
+              start: 'bottom 40%',
+              toggleActions: 'play none none reverse',
+            }
+          });
+        }
+
+        if (desc) {
+          gsap.to(desc, {
+            opacity: 0,
+            y: -30,
+            duration: 0.5,
+            delay: 0.1,
+            ease: 'power2.in',
+            scrollTrigger: {
+              trigger: section,
+              start: 'bottom 40%',
+              toggleActions: 'play none none reverse',
+            }
+          });
+        }
+        return;
+      }
+
+      // ── SUBSEQUENT SECTIONS (1, 2, 3...) STANDARD LOGIC ──
       if (title) {
-        // Fade IN
         gsap.to(title, {
           opacity: 1,
           y: 0,
@@ -429,7 +452,6 @@ if (canvas3D) {
           }
         });
 
-        // Fade OUT (only for non-last sections)
         if (i < scrollSections.length - 1) {
           gsap.to(title, {
             opacity: 0,
@@ -446,7 +468,6 @@ if (canvas3D) {
       }
 
       if (desc) {
-        // Always show/hide description on scroll with reverse on scroll back
         gsap.to(desc, {
           opacity: 1,
           y: 0,
@@ -471,8 +492,6 @@ if (canvas3D) {
   // ══════════════════════════════════════════════════
   // ── NON-INDEX PAGES (works, about, contact, etc) ─
   // ══════════════════════════════════════════════════
-
-  // Pre-loader (if present on a non-canvas page)
   const loader = document.getElementById('loader');
   if (loader) {
     const loaderCounter = document.getElementById('loader-counter');
@@ -691,7 +710,6 @@ const footer = document.querySelector('footer.home-footer');
 const canvasContainer = document.querySelector('.canvas-container');
 
 if (footer && canvasContainer) {
-  // Create a scroll trigger that tracks footer entry
   gsap.registerEffect({
     name: 'footerScroll',
     effect: (targets, config) => {
@@ -699,27 +717,21 @@ if (footer && canvasContainer) {
     }
   });
 
-  // Main scroll listener using GSAP
   ScrollTrigger.create({
     trigger: footer,
     start: 'top bottom',
     end: 'top top',
     onUpdate: (self) => {
-      // self.progress goes from 0 (footer not visible) to 1 (footer at top of viewport)
       const progress = self.progress;
-      
-      // Translate canvas up by 30% of viewport height (reduced from full height)
       const translateAmount = progress * window.innerHeight * 0.3;
-      
       gsap.set(canvasContainer, {
         y: -translateAmount,
         overwrite: 'auto'
       });
     },
-    scrub: 0.8 // Reduced scrub for subtler effect
+    scrub: 0.8
   });
 
-  // Optional: Reset on window resize
   window.addEventListener('resize', () => {
     ScrollTrigger.getAll().forEach(trigger => {
       if (trigger.vars.trigger === footer) {
