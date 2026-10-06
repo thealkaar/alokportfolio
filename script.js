@@ -129,59 +129,7 @@ const canvas3D = document.getElementById('3d-canvas');
 if (canvas3D) {
   const ctx = canvas3D.getContext('2d');
 
-  // ── Frame image paths (sorted by rotation angle: 0° → 360°) ──
-  let frameFiles = [
-    // ─── 0° FRONT (dead center) ───
-    'public/Frontal_view_of_subject_2K_202607022247.jpeg',
-    'public/Frontal_view_subject_photography_2K_202607022246.jpeg',
-    'public/Frontal_view_of_subject_2K_202607022303.jpeg',
-    'public/Frontal_view_subject_photography_2K_202607022304.jpeg',
-    'public/Front_view_of_subject_2K_202607022304.jpeg',
-    'public/Front_view_of_subject_2K_202607022304 (1).jpeg',
-
-    // ─── ~20°–45° ANGLED (slight right turn) ───
-    'public/Angled_view_of_subject_2K_202607022246.jpeg',
-    'public/Angled_view_of_subject_2K_202607022302.jpeg',
-    'public/Angled_view_of_subject_2K_202607022246 (1).jpeg',
-    'public/Angled_view_of_subject_2K_202607022302 (1).jpeg',
-    'public/Angled_view_of_subject_2K_202607022246 (2).jpeg',
-    'public/Angled_view_of_subject_2K_202607022302 (2).jpeg',
-    'public/Angled_view_of_subject_2K_202607022247.jpeg',
-    'public/Angled_view_of_subject_2K_202607022303.jpeg',
-
-    // ─── ~36°–60° THREE-QUARTERS ───
-    'public/View_of_subject_36_degrees_202607022247.jpeg',
-    'public/Three-quarters_view_portfolio_shot_2K_202607022247.jpeg',
-    'public/Angled_view_of_subject_2K_202607022303 (1).jpeg',
-    'public/Angled_view_of_subject_2K_202607022303 (2).jpeg',
-
-    // ─── ~70°–90° SIDE PROFILE ───
-    'public/Side-angled_view_of_subject_2K_202607022246.jpeg',
-    'public/Side_profile_view_subject_2K_202607022247.jpeg',
-    'public/Side_view_subject_90_degrees_202607022303.jpeg',
-    'public/Side_view_of_subject_2K_202607022304.jpeg',
-
-    // ─── ~120°–150° BACK-ANGLED ───
-    'public/Back-angled_view_of_subject_2K_202607022246.jpeg',
-    'public/Back-angled_view_of_subject_2K_202607022247.jpeg',
-    'public/Back-angled_view_of_subject_2K_202607022247 (1).jpeg',
-    'public/Back_view_subject_144_degrees_202607022304.jpeg',
-
-    // ─── ~180° BACK (dead rear) ───
-    'public/Back_view_of_subject_2K_202607022247.jpeg',
-    'public/Back_view_of_subject_2K_202607022303.jpeg',
-    'public/Back_view_of_subject_2K_202607022303 (1).jpeg',
-    'public/View_from_behind_subject_2K_202607022304.jpeg',
-    'public/Back_view_of_subject_2K_202607022304.jpeg',
-    'public/Back_view_of_subject_2K_202607022304 (1).jpeg',
-
-    // ─── ~240°–290° OPPOSITE SIDE (left profile) ───
-    'public/Opposite_side_view_subject_2K_202607022246.jpeg',
-    'public/Front_view_subject_288_rotation_202607022304.jpeg',
-    'public/Opposite_front-angled_view_subject_2K_202607022246.jpeg',
-  ];
-
-  frameFiles = [
+  const frameFiles = [
     'public/Frontal_view_of_subject_2K_202607022247.jpeg',
     'public/Frontal_view_subject_photography_2K_202607022246.jpeg',
     'public/Frontal_view_of_subject_2K_202607022303.jpeg',
@@ -222,7 +170,7 @@ if (canvas3D) {
   ];
 
   const frameCount = frameFiles.length;
-  const images = [];
+  const images = new Array(frameCount).fill(null);
   let imagesLoaded = 0;
   let currentFrameIndex = 0;
   let currentFrameFloat = 0;
@@ -302,39 +250,79 @@ if (canvas3D) {
     const canvasH = window.innerHeight;
     ctx.clearRect(0, 0, canvasW, canvasH);
 
-    const floorIdx = Math.floor(frameFloat);
+    const clampedFrame = Math.max(0, Math.min(frameFloat, frameCount - 1));
+    const floorIdx = Math.floor(clampedFrame);
     const ceilIdx = Math.min(floorIdx + 1, frameCount - 1);
-    const blend = frameFloat - floorIdx;
+    const blend = clampedFrame - floorIdx;
 
-    drawImageCover(images[floorIdx], 1.0);
+    const currentImg = images[floorIdx];
+    const nextImg = images[ceilIdx];
 
-    if (blend > 0.01 && ceilIdx !== floorIdx) {
-      drawImageCover(images[ceilIdx], blend);
+    if (currentImg) drawImageCover(currentImg, 1.0);
+
+    if (blend > 0.01 && ceilIdx !== floorIdx && nextImg) {
+      drawImageCover(nextImg, blend);
     }
   }
 
-  // ── Preload all images ──
+  // ── Preload all images without blocking page startup ──
   const loader = document.getElementById('loader');
   const loaderCounter = document.getElementById('loader-counter');
 
+  function updateLoaderProgress(loadedCount) {
+    const progress = Math.min(100, Math.round((loadedCount / frameCount) * 100));
+    if (loaderCounter) loaderCounter.textContent = progress;
+  }
+
   function preloadImages() {
     return new Promise((resolve) => {
+      let processed = 0;
+      let hasStartedLoading = false;
+      let resolved = false;
+
+      const finish = () => {
+        if (resolved) return;
+        resolved = true;
+        clearTimeout(fallbackTimer);
+        resolve();
+      };
+
+      const fallbackTimer = setTimeout(() => {
+        if (loaderCounter) loaderCounter.textContent = '100';
+        finish();
+      }, 5000);
+
       frameFiles.forEach((src, i) => {
         const img = new Image();
-        img.src = src;
-        img.onload = () => {
-          imagesLoaded++;
-          const progress = Math.floor((imagesLoaded / frameCount) * 100);
-          if (loaderCounter) loaderCounter.textContent = progress;
-          if (imagesLoaded === frameCount) resolve();
+        img.decoding = 'async';
+        hasStartedLoading = true;
+
+        const onComplete = () => {
+          processed += 1;
+          if (img.complete && img.naturalWidth > 0) {
+            images[i] = img;
+            imagesLoaded += 1;
+            updateLoaderProgress(imagesLoaded);
+          }
+
+          if (processed >= frameCount) {
+            finish();
+          }
         };
+
+        img.onload = () => {
+          onComplete();
+        };
+
         img.onerror = () => {
           console.warn('Failed to load frame:', src);
-          imagesLoaded++;
-          if (imagesLoaded === frameCount) resolve();
+          onComplete();
         };
-        images[i] = img;
+
+        img.src = src;
       });
+
+      if (!hasStartedLoading) finish();
     });
   }
 
@@ -344,7 +332,6 @@ if (canvas3D) {
     window.addEventListener('resize', resizeCanvas);
 
     await preloadImages();
-
     renderFrame(0);
 
     if (loader) {
@@ -356,6 +343,17 @@ if (canvas3D) {
     } else {
       animateScrollSections();
     }
+
+    // Load remaining images in the background after initial page open
+    frameFiles.forEach((src, i) => {
+      if (!images[i]) {
+        const img = new Image();
+        img.decoding = 'async';
+        img.onload = () => { images[i] = img; };
+        img.onerror = () => { console.warn('Background load failed:', src); };
+        img.src = src;
+      }
+    });
   }
 
   // ── SCROLL SECTIONS ENGINE ──────────────────────────
@@ -407,7 +405,6 @@ if (canvas3D) {
 
       // ── HERO SECTION (INDEX 0) SPECIAL HANDLING ──
       if (i === 0) {
-        // Overrides original hidden CSS configurations instantly on boot
         gsap.set([title, desc].filter(Boolean), { opacity: 1, y: 0 });
 
         if (title) {
@@ -488,7 +485,6 @@ if (canvas3D) {
     });
   }
 
-  // Fire the boot
   init3DSequence();
 
 } else {
