@@ -1068,7 +1068,7 @@ html.lenis, html.lenis body {
   }
 
   .scroll-section {
-    min-height: 100svh;
+    min-height: 72svh;
     height: auto;
     padding: 112px 22px 72px;
     justify-content: flex-end;
@@ -1314,4 +1314,3 @@ html.lenis, html.lenis body {
     transition-duration: 0.01ms !important;
   }
 }
-

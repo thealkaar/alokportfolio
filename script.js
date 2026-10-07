@@ -129,65 +129,9 @@ const canvas3D = document.getElementById('3d-canvas');
 if (canvas3D) {
   const ctx = canvas3D.getContext('2d');
 
-  // ── Frame image paths (sorted by rotation angle: 0° → 360°) ──
-  let frameFiles = [
-    // ─── 0° FRONT (dead center) ───
+  // ── Frame images ordered from the front, around the subject, and back to the front ──
+  const frameFiles = [
     'public/Frontal_view_of_subject_2K_202607022247.jpeg',
-    'public/Frontal_view_subject_photography_2K_202607022246.jpeg',
-    'public/Frontal_view_of_subject_2K_202607022303.jpeg',
-    'public/Frontal_view_subject_photography_2K_202607022304.jpeg',
-    'public/Front_view_of_subject_2K_202607022304.jpeg',
-    'public/Front_view_of_subject_2K_202607022304 (1).jpeg',
-
-    // ─── ~20°–45° ANGLED (slight right turn) ───
-    'public/Angled_view_of_subject_2K_202607022246.jpeg',
-    'public/Angled_view_of_subject_2K_202607022302.jpeg',
-    'public/Angled_view_of_subject_2K_202607022246 (1).jpeg',
-    'public/Angled_view_of_subject_2K_202607022302 (1).jpeg',
-    'public/Angled_view_of_subject_2K_202607022246 (2).jpeg',
-    'public/Angled_view_of_subject_2K_202607022302 (2).jpeg',
-    'public/Angled_view_of_subject_2K_202607022247.jpeg',
-    'public/Angled_view_of_subject_2K_202607022303.jpeg',
-
-    // ─── ~36°–60° THREE-QUARTERS ───
-    'public/View_of_subject_36_degrees_202607022247.jpeg',
-    'public/Three-quarters_view_portfolio_shot_2K_202607022247.jpeg',
-    'public/Angled_view_of_subject_2K_202607022303 (1).jpeg',
-    'public/Angled_view_of_subject_2K_202607022303 (2).jpeg',
-
-    // ─── ~70°–90° SIDE PROFILE ───
-    'public/Side-angled_view_of_subject_2K_202607022246.jpeg',
-    'public/Side_profile_view_subject_2K_202607022247.jpeg',
-    'public/Side_view_subject_90_degrees_202607022303.jpeg',
-    'public/Side_view_of_subject_2K_202607022304.jpeg',
-
-    // ─── ~120°–150° BACK-ANGLED ───
-    'public/Back-angled_view_of_subject_2K_202607022246.jpeg',
-    'public/Back-angled_view_of_subject_2K_202607022247.jpeg',
-    'public/Back-angled_view_of_subject_2K_202607022247 (1).jpeg',
-    'public/Back_view_subject_144_degrees_202607022304.jpeg',
-
-    // ─── ~180° BACK (dead rear) ───
-    'public/Back_view_of_subject_2K_202607022247.jpeg',
-    'public/Back_view_of_subject_2K_202607022303.jpeg',
-    'public/Back_view_of_subject_2K_202607022303 (1).jpeg',
-    'public/View_from_behind_subject_2K_202607022304.jpeg',
-    'public/Back_view_of_subject_2K_202607022304.jpeg',
-    'public/Back_view_of_subject_2K_202607022304 (1).jpeg',
-
-    // ─── ~240°–290° OPPOSITE SIDE (left profile) ───
-    'public/Opposite_side_view_subject_2K_202607022246.jpeg',
-    'public/Front_view_subject_288_rotation_202607022304.jpeg',
-    'public/Opposite_front-angled_view_subject_2K_202607022246.jpeg',
-  ];
-
-  frameFiles = [
-    'public/Frontal_view_of_subject_2K_202607022247.jpeg',
-    'public/Frontal_view_subject_photography_2K_202607022246.jpeg',
-    'public/Frontal_view_of_subject_2K_202607022303.jpeg',
-    'public/Frontal_view_subject_photography_2K_202607022304.jpeg',
-    'public/Front_view_of_subject_2K_202607022304.jpeg',
-    'public/Front_view_of_subject_2K_202607022304 (1).jpeg',
     'public/View_of_subject_36_degrees_202607022247.jpeg',
     'public/Three-quarters_view_portfolio_shot_2K_202607022247.jpeg',
     'public/Angled_view_of_subject_2K_202607022246.jpeg',
@@ -211,25 +155,32 @@ if (canvas3D) {
     'public/Back_view_of_subject_2K_202607022247.jpeg',
     'public/Back_view_of_subject_2K_202607022303.jpeg',
     'public/Back_view_of_subject_2K_202607022303 (1).jpeg',
-    'public/View_from_behind_subject_2K_202607022304.jpeg',
     'public/Back_view_of_subject_2K_202607022304.jpeg',
     'public/Back_view_of_subject_2K_202607022304 (1).jpeg',
+    'public/View_from_behind_subject_2K_202607022304.jpeg',
     'public/Opposite_side_view_subject_2K_202607022246.jpeg',
     'public/Opposite_front-angled_view_subject_2K_202607022246.jpeg',
     'public/Front_view_subject_288_rotation_202607022304.jpeg',
+    'public/Front_view_of_subject_2K_202607022304.jpeg',
+    'public/Front_view_of_subject_2K_202607022304 (1).jpeg',
     'public/Frontal_view_subject_photography_2K_202607022246.jpeg',
+    'public/Frontal_view_of_subject_2K_202607022303.jpeg',
+    'public/Frontal_view_subject_photography_2K_202607022304.jpeg',
     'public/Frontal_view_of_subject_2K_202607022247.jpeg',
   ];
 
   const frameCount = frameFiles.length;
   const images = [];
   let imagesLoaded = 0;
-  let currentFrameIndex = 0;
   let currentFrameFloat = 0;
+  let renderRequest = 0;
 
   // ── Canvas sizing (retina-aware) ──
   function resizeCanvas() {
-    const dpr = window.devicePixelRatio || 1;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const dpr = isMobile
+      ? Math.min(window.devicePixelRatio || 1, 1.5)
+      : window.devicePixelRatio || 1;
     canvas3D.width = window.innerWidth * dpr;
     canvas3D.height = window.innerHeight * dpr;
     canvas3D.style.width = window.innerWidth + 'px';
@@ -257,35 +208,19 @@ if (canvas3D) {
     return { drawX, drawY, drawW, drawH };
   }
 
-  function getContainRect(img, canvasW, canvasH) {
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    const maxW = isMobile ? canvasW * 1.12 : canvasW;
-    const maxH = isMobile ? canvasH * 0.68 : canvasH;
-    const scale = Math.min(maxW / img.naturalWidth, maxH / img.naturalHeight);
-    const drawW = img.naturalWidth * scale;
-    const drawH = img.naturalHeight * scale;
-    const drawX = (canvasW - drawW) / 2;
-    const drawY = isMobile ? canvasH * 0.14 : (canvasH - drawH) / 2;
-    return { drawX, drawY, drawW, drawH };
-  }
-
   function drawImageCover(img, alpha) {
-    if (!img || !img.complete) return;
+    if (!img || !img.complete || !img.naturalWidth) return;
     const canvasW = window.innerWidth;
     const canvasH = window.innerHeight;
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
     if (isMobile) {
-      const bg = getCoverRect(img, canvasW, canvasH);
-      ctx.save();
-      ctx.globalAlpha = alpha * 0.42;
-      ctx.filter = 'blur(18px) brightness(0.72) saturate(1.05)';
-      ctx.drawImage(img, bg.drawX - 24, bg.drawY - 24, bg.drawW + 48, bg.drawH + 48);
-      ctx.restore();
-
-      const fg = getContainRect(img, canvasW, canvasH);
+      const cover = getCoverRect(img, canvasW, canvasH);
+      const zoom = 1.18;
+      const drawW = cover.drawW * zoom;
+      const drawH = cover.drawH * zoom;
       ctx.globalAlpha = alpha;
-      ctx.drawImage(img, fg.drawX, fg.drawY, fg.drawW, fg.drawH);
+      ctx.drawImage(img, (canvasW - drawW) / 2, (canvasH - drawH) / 2, drawW, drawH);
       ctx.globalAlpha = 1.0;
       return;
     }
@@ -296,21 +231,31 @@ if (canvas3D) {
     ctx.globalAlpha = 1.0;
   }
 
-  // ── Render with cross-fade blending between adjacent frames ──
+  // ── Blend adjacent views and coalesce scroll updates into one paint per frame ──
   function renderFrame(frameFloat) {
     const canvasW = window.innerWidth;
     const canvasH = window.innerHeight;
     ctx.clearRect(0, 0, canvasW, canvasH);
 
-    const floorIdx = Math.floor(frameFloat);
-    const ceilIdx = Math.min(floorIdx + 1, frameCount - 1);
-    const blend = frameFloat - floorIdx;
+    const boundedFrame = Math.max(0, Math.min(frameFloat, frameCount - 1));
+    const floorIndex = Math.floor(boundedFrame);
+    const ceilIndex = Math.min(floorIndex + 1, frameCount - 1);
+    const blend = boundedFrame - floorIndex;
 
-    drawImageCover(images[floorIdx], 1.0);
-
-    if (blend > 0.01 && ceilIdx !== floorIdx) {
-      drawImageCover(images[ceilIdx], blend);
+    drawImageCover(images[floorIndex], 1);
+    if (ceilIndex !== floorIndex && blend > 0) {
+      drawImageCover(images[ceilIndex], blend);
     }
+  }
+
+  function scheduleFrameRender(frameFloat) {
+    currentFrameFloat = frameFloat;
+    if (renderRequest) return;
+
+    renderRequest = window.requestAnimationFrame(() => {
+      renderRequest = 0;
+      renderFrame(currentFrameFloat);
+    });
   }
 
   // ── Preload all images ──
@@ -391,7 +336,12 @@ if (canvas3D) {
 
     // Main frame scrubber
     const scrollSections = gsap.utils.toArray('.scroll-section');
-    const totalScrollHeight = window.innerHeight * 7.5;
+    const getSequenceScrollDistance = () => {
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        return scrollSections.reduce((height, section) => height + section.offsetHeight, 0);
+      }
+      return window.innerHeight * 7.5;
+    };
 
     gsap.to({ frame: 0 }, {
       frame: frameCount - 1,
@@ -399,15 +349,13 @@ if (canvas3D) {
       scrollTrigger: {
         trigger: 'body',
         start: 'top top',
-        end: () => '+=' + totalScrollHeight,
-        scrub: 0.08,
+        end: () => '+=' + getSequenceScrollDistance(),
+        scrub: window.matchMedia('(max-width: 768px)').matches ? 0.35 : 0.08,
         pin: false,
       },
       onUpdate: function () {
         const frameFloat = this.targets()[0].frame;
-        currentFrameFloat = frameFloat;
-        currentFrameIndex = Math.round(frameFloat);
-        renderFrame(frameFloat);
+        scheduleFrameRender(frameFloat);
       }
     });
 
