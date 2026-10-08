@@ -808,7 +808,7 @@ html.lenis, html.lenis body {
   }
 }
 
-/* ── 3D SCROLL SEQUENCE CANVAS ────────────────────── */
+/* ── SCROLL-CONTROLLED BACKGROUND VIDEO ──────────── */
 .canvas-container {
   position: fixed;
   top: 0; left: 0;
@@ -820,7 +820,7 @@ html.lenis, html.lenis body {
   justify-content: center;
   background: var(--bg);
 }
-.canvas-container canvas {
+.canvas-container video {
   width: 100vw;
   height: 100vh;
   object-fit: cover;

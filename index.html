@@ -56,48 +56,52 @@
     <a href="contact.html" class="mobile-link">Contact</a>
   </div>
 
-  <!-- Fixed Background 3D Canvas -->
+  <!-- Fixed background video; playback is driven by homepage scrolling. -->
   <div class="canvas-container">
-    <canvas id="3d-canvas"></canvas>
+    <video id="scroll-video" muted playsinline preload="auto" aria-hidden="true" tabindex="-1">
+      <source src="public/alokvideo.mp4" type="video/mp4" />
+    </video>
   </div>
 
   <!-- Scroll Overlay Sections -->
-  <section class="scroll-section">
-    <div class="scroll-section-content">
-      <h1 class="scroll-section-title" id="scroll-title-1">
-        I craft digital <br/>
-        experiences that <em class="italic-serif">inspire</em>
-      </h1>
-      <p class="scroll-section-desc scroll-desc-right" id="scroll-desc-1">
-        Alok Kumar — B.Tech Computer Science & Engineering student at MANIT Bhopal. Builder, coder, and creative problem solver.
-      </p>
-    </div>
-  </section>
-
-  <section class="scroll-section">
-    <div class="scroll-section-content">
-      <h2 class="scroll-section-title" id="scroll-title-2">
-        Great software is <br/>
-        <em class="italic-serif">poetry</em> made executable.
-      </h2>
-      <p class="scroll-section-desc" id="scroll-desc-2">
-        Specializing in full-stack development, interactive visual architectures, and digitizing the informal economy.
-      </p>
-    </div>
-  </section>
-
-  <section class="scroll-section">
-    <div class="scroll-section-content">
-      <h2 class="scroll-section-title" id="scroll-title-3">
-        Let's build <br/>
-        something <em class="italic-serif">amazing</em> together.
-      </h2>
-      <div class="scroll-section-desc" id="scroll-desc-3" style="display: flex; gap: 20px; margin-top: 24px;">
-        <a href="projects.html" class="skill-pill" style="pointer-events: auto; padding: 12px 28px; font-weight: 500; font-family: var(--font);">Explore Projects ↗</a>
-        <a href="about.html" class="skill-pill" style="pointer-events: auto; padding: 12px 28px; font-weight: 500; font-family: var(--font); border-color: transparent;">About Me</a>
+  <div class="scroll-sequence">
+    <section class="scroll-section">
+      <div class="scroll-section-content">
+        <h1 class="scroll-section-title" id="scroll-title-1">
+          I craft digital <br/>
+          experiences that <em class="italic-serif">inspire</em>
+        </h1>
+        <p class="scroll-section-desc scroll-desc-right" id="scroll-desc-1">
+          Alok Kumar — B.Tech Computer Science & Engineering student at MANIT Bhopal. Builder, coder, and creative problem solver.
+        </p>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section class="scroll-section">
+      <div class="scroll-section-content">
+        <h2 class="scroll-section-title" id="scroll-title-2">
+          Great software is <br/>
+          <em class="italic-serif">poetry</em> made executable.
+        </h2>
+        <p class="scroll-section-desc" id="scroll-desc-2">
+          Specializing in full-stack development, interactive visual architectures, and digitizing the informal economy.
+        </p>
+      </div>
+    </section>
+
+    <section class="scroll-section">
+      <div class="scroll-section-content">
+        <h2 class="scroll-section-title" id="scroll-title-3">
+          Let's build <br/>
+          something <em class="italic-serif">amazing</em> together.
+        </h2>
+        <div class="scroll-section-desc" id="scroll-desc-3" style="display: flex; gap: 20px; margin-top: 24px;">
+          <a href="projects.html" class="skill-pill" style="pointer-events: auto; padding: 12px 28px; font-weight: 500; font-family: var(--font);">Explore Projects ↗</a>
+          <a href="about.html" class="skill-pill" style="pointer-events: auto; padding: 12px 28px; font-weight: 500; font-family: var(--font); border-color: transparent;">About Me</a>
+        </div>
+      </div>
+    </section>
+  </div>
 
 
   <!-- Marquee and Footer at the bottom -->

@@ -122,202 +122,39 @@ document.querySelectorAll('a[href]').forEach(link => {
 });
 
 // ══════════════════════════════════════════════════════
-// ── 3D CANVAS SCROLL SEQUENCE (INDEX PAGE ONLY) ─────
+// ── SCROLL-CONTROLLED VIDEO SEQUENCE (INDEX PAGE) ────
 // ══════════════════════════════════════════════════════
-const canvas3D = document.getElementById('3d-canvas');
+const scrollVideo = document.getElementById('scroll-video');
 
-if (canvas3D) {
-  const ctx = canvas3D.getContext('2d');
-
-  // ── Frame images ordered from the front, around the subject, and back to the front ──
-  const frameFiles = [
-    'public/Frontal_view_of_subject_2K_202607022247.jpeg',
-    'public/View_of_subject_36_degrees_202607022247.jpeg',
-    'public/Three-quarters_view_portfolio_shot_2K_202607022247.jpeg',
-    'public/Angled_view_of_subject_2K_202607022246.jpeg',
-    'public/Angled_view_of_subject_2K_202607022246 (1).jpeg',
-    'public/Angled_view_of_subject_2K_202607022246 (2).jpeg',
-    'public/Angled_view_of_subject_2K_202607022247.jpeg',
-    'public/Angled_view_of_subject_2K_202607022302.jpeg',
-    'public/Angled_view_of_subject_2K_202607022302 (1).jpeg',
-    'public/Angled_view_of_subject_2K_202607022302 (2).jpeg',
-    'public/Angled_view_of_subject_2K_202607022303.jpeg',
-    'public/Angled_view_of_subject_2K_202607022303 (1).jpeg',
-    'public/Angled_view_of_subject_2K_202607022303 (2).jpeg',
-    'public/Side-angled_view_of_subject_2K_202607022246.jpeg',
-    'public/Side_profile_view_subject_2K_202607022247.jpeg',
-    'public/Side_view_subject_90_degrees_202607022303.jpeg',
-    'public/Side_view_of_subject_2K_202607022304.jpeg',
-    'public/Back-angled_view_of_subject_2K_202607022246.jpeg',
-    'public/Back-angled_view_of_subject_2K_202607022247.jpeg',
-    'public/Back-angled_view_of_subject_2K_202607022247 (1).jpeg',
-    'public/Back_view_subject_144_degrees_202607022304.jpeg',
-    'public/Back_view_of_subject_2K_202607022247.jpeg',
-    'public/Back_view_of_subject_2K_202607022303.jpeg',
-    'public/Back_view_of_subject_2K_202607022303 (1).jpeg',
-    'public/Back_view_of_subject_2K_202607022304.jpeg',
-    'public/Back_view_of_subject_2K_202607022304 (1).jpeg',
-    'public/View_from_behind_subject_2K_202607022304.jpeg',
-    'public/Opposite_side_view_subject_2K_202607022246.jpeg',
-    'public/Opposite_front-angled_view_subject_2K_202607022246.jpeg',
-    'public/Front_view_subject_288_rotation_202607022304.jpeg',
-    'public/Front_view_of_subject_2K_202607022304.jpeg',
-    'public/Front_view_of_subject_2K_202607022304 (1).jpeg',
-    'public/Frontal_view_subject_photography_2K_202607022246.jpeg',
-    'public/Frontal_view_of_subject_2K_202607022303.jpeg',
-    'public/Frontal_view_subject_photography_2K_202607022304.jpeg',
-    'public/Frontal_view_of_subject_2K_202607022247.jpeg',
-  ];
-
-  const frameCount = frameFiles.length;
-  const images = [];
-  let imagesLoaded = 0;
-  let currentFrameFloat = 0;
-  let renderRequest = 0;
-
-  // ── Canvas sizing (retina-aware) ──
-  function resizeCanvas() {
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    const dpr = isMobile
-      ? 1
-      : window.devicePixelRatio || 1;
-    canvas3D.width = window.innerWidth * dpr;
-    canvas3D.height = window.innerHeight * dpr;
-    canvas3D.style.width = window.innerWidth + 'px';
-    canvas3D.style.height = window.innerHeight + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    renderFrame(currentFrameFloat);
-  }
-
-  // ── Draw a single image cover-fit ──
-  function getCoverRect(img, canvasW, canvasH) {
-    const imgRatio = img.naturalWidth / img.naturalHeight;
-    const canvasRatio = canvasW / canvasH;
-    let drawW, drawH, drawX, drawY;
-    if (imgRatio > canvasRatio) {
-      drawH = canvasH;
-      drawW = drawH * imgRatio;
-      drawX = (canvasW - drawW) / 2;
-      drawY = 0;
-    } else {
-      drawW = canvasW;
-      drawH = drawW / imgRatio;
-      drawX = 0;
-      drawY = (canvasH - drawH) / 2;
-    }
-    return { drawX, drawY, drawW, drawH };
-  }
-
-  function drawImageCover(img, alpha) {
-    if (!img || !img.complete || !img.naturalWidth) return;
-    const canvasW = window.innerWidth;
-    const canvasH = window.innerHeight;
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-
-    if (isMobile) {
-      const cover = getCoverRect(img, canvasW, canvasH);
-      const zoom = 1.18;
-      const drawW = cover.drawW * zoom;
-      const drawH = cover.drawH * zoom;
-      ctx.globalAlpha = alpha;
-      ctx.drawImage(img, (canvasW - drawW) / 2, (canvasH - drawH) / 2, drawW, drawH);
-      ctx.globalAlpha = 1.0;
-      return;
-    }
-
-    const { drawX, drawY, drawW, drawH } = getCoverRect(img, canvasW, canvasH);
-    ctx.globalAlpha = alpha;
-    ctx.drawImage(img, drawX, drawY, drawW, drawH);
-    ctx.globalAlpha = 1.0;
-  }
-
-  // ── Render mobile frames directly; blend desktop frames for smoother transitions ──
-  function renderFrame(frameFloat) {
-    const canvasW = window.innerWidth;
-    const canvasH = window.innerHeight;
-
-    const boundedFrame = Math.max(0, Math.min(frameFloat, frameCount - 1));
-    const floorIndex = Math.floor(boundedFrame);
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    if (isMobile) {
-      const frameIndex = Math.round(boundedFrame);
-      drawImageCover(images[frameIndex], 1);
-      return;
-    }
-
-    const ceilIndex = Math.min(floorIndex + 1, frameCount - 1);
-    const blend = boundedFrame - floorIndex;
-
-    drawImageCover(images[floorIndex], 1);
-    if (ceilIndex !== floorIndex && blend > 0) {
-      drawImageCover(images[ceilIndex], blend);
-    }
-  }
-
-  function scheduleFrameRender(frameFloat) {
-    currentFrameFloat = frameFloat;
-    if (renderRequest) return;
-
-    renderRequest = window.requestAnimationFrame(() => {
-      renderRequest = 0;
-      renderFrame(currentFrameFloat);
-    });
-  }
-
-  // ── Preload all images ──
+if (scrollVideo) {
   const loader = document.getElementById('loader');
   const loaderCounter = document.getElementById('loader-counter');
 
-  function preloadImages() {
+  function waitForVideoMetadata() {
     return new Promise((resolve) => {
-      let loadedCount = 0;
-      
-      frameFiles.forEach((src, i) => {
-        const img = new Image();
-        img.src = src;
-        img.decoding = 'async';
-        img.loading = 'eager';
-        
-        const updateProgress = () => {
-          loadedCount++;
-          const progress = Math.floor((loadedCount / frameCount) * 100);
-          if (loaderCounter) loaderCounter.textContent = progress;
-          if (loadedCount === frameCount) {
-            resolve();
-          }
-        };
-        
-        img.onload = () => {
-          updateProgress();
-        };
-        img.onerror = () => {
-          console.warn('Failed to load frame:', src);
-          updateProgress();
-        };
-        
-        images[i] = img;
-      });
+      const cleanup = () => {
+        scrollVideo.removeEventListener('loadedmetadata', onLoaded);
+        scrollVideo.removeEventListener('error', onError);
+      };
+      const onLoaded = () => {
+        cleanup();
+        resolve(true);
+      };
+      const onError = () => {
+        cleanup();
+        console.error('Failed to load homepage video:', scrollVideo.error);
+        resolve(false);
+      };
+
+      if (scrollVideo.readyState >= 1) {
+        resolve(true);
+        return;
+      }
+
+      scrollVideo.addEventListener('loadedmetadata', onLoaded);
+      scrollVideo.addEventListener('error', onError);
+      scrollVideo.load();
     });
-  }
-
-  // ── Boot sequence ──
-  async function init3DSequence() {
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    await preloadImages();
-
-    renderFrame(0);
-
-    if (loader) {
-      loader.classList.add('done');
-      setTimeout(() => {
-        loader.style.display = 'none';
-        animateScrollSections();
-      }, 800);
-    } else {
-      animateScrollSections();
-    }
   }
 
   // ── SCROLL SECTIONS ENGINE ──────────────────────────
@@ -340,30 +177,21 @@ if (canvas3D) {
       });
     }
 
-    // Main frame scrubber
+    // Scrub the video over the three homepage sections; scroll position is its timeline.
     const scrollSections = gsap.utils.toArray('.scroll-section');
-    const getSequenceScrollDistance = () => {
-      if (window.matchMedia('(max-width: 768px)').matches) {
-        return scrollSections.reduce((height, section) => height + section.offsetHeight, 0);
-      }
-      return window.innerHeight * 7.5;
-    };
-
-    gsap.to({ frame: 0 }, {
-      frame: frameCount - 1,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: 'body',
-        start: 'top top',
-        end: () => '+=' + getSequenceScrollDistance(),
-        scrub: window.matchMedia('(max-width: 768px)').matches ? 0.12 : 0.08,
-        pin: false,
-      },
-      onUpdate: function () {
-        const frameFloat = this.targets()[0].frame;
-        scheduleFrameRender(frameFloat);
-      }
-    });
+    if (Number.isFinite(scrollVideo.duration) && scrollVideo.duration > 0) {
+      gsap.to(scrollVideo, {
+        currentTime: scrollVideo.duration,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.scroll-sequence',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+          invalidateOnRefresh: true,
+        }
+      });
+    }
 
     // ── Scroll section text animations ──
     scrollSections.forEach((section, i) => {
@@ -453,8 +281,22 @@ if (canvas3D) {
     });
   }
 
-  // Fire the boot
-  init3DSequence();
+  async function initVideoSequence() {
+    const videoLoaded = await waitForVideoMetadata();
+    if (loaderCounter) loaderCounter.textContent = videoLoaded ? '100' : '!';
+
+    if (loader) {
+      loader.classList.add('done');
+      setTimeout(() => {
+        loader.style.display = 'none';
+        animateScrollSections();
+      }, 800);
+    } else {
+      animateScrollSections();
+    }
+  }
+
+  initVideoSequence();
 
 } else {
   // ══════════════════════════════════════════════════
@@ -672,12 +514,12 @@ if (playgroundCanvas && typeof Draggable !== 'undefined') {
 }
 
 // ══════════════════════════════════════════���═══════════
-// ── FOOTER SCROLL EFFECT (Canvas translation) ────────
+// ── FOOTER SCROLL EFFECT (Background video translation) ─
 // ══════════════════════════════════════════════════════
 const footer = document.querySelector('footer.home-footer');
-const canvasContainer = document.querySelector('.canvas-container');
+const backgroundVideoContainer = document.querySelector('.canvas-container');
 
-if (footer && canvasContainer) {
+if (footer && backgroundVideoContainer) {
   gsap.registerEffect({
     name: 'footerScroll',
     effect: (targets, config) => {
@@ -692,7 +534,7 @@ if (footer && canvasContainer) {
     onUpdate: (self) => {
       const progress = self.progress;
       const translateAmount = progress * window.innerHeight * 0.3;
-      gsap.set(canvasContainer, {
+      gsap.set(backgroundVideoContainer, {
         y: -translateAmount,
         overwrite: 'auto'
       });
