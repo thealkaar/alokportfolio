@@ -179,7 +179,7 @@ if (canvas3D) {
   function resizeCanvas() {
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
     const dpr = isMobile
-      ? Math.min(window.devicePixelRatio || 1, 1.5)
+      ? 1
       : window.devicePixelRatio || 1;
     canvas3D.width = window.innerWidth * dpr;
     canvas3D.height = window.innerHeight * dpr;
@@ -231,14 +231,20 @@ if (canvas3D) {
     ctx.globalAlpha = 1.0;
   }
 
-  // ── Blend adjacent views and coalesce scroll updates into one paint per frame ──
+  // ── Render mobile frames directly; blend desktop frames for smoother transitions ──
   function renderFrame(frameFloat) {
     const canvasW = window.innerWidth;
     const canvasH = window.innerHeight;
-    ctx.clearRect(0, 0, canvasW, canvasH);
 
     const boundedFrame = Math.max(0, Math.min(frameFloat, frameCount - 1));
     const floorIndex = Math.floor(boundedFrame);
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (isMobile) {
+      const frameIndex = Math.round(boundedFrame);
+      drawImageCover(images[frameIndex], 1);
+      return;
+    }
+
     const ceilIndex = Math.min(floorIndex + 1, frameCount - 1);
     const blend = boundedFrame - floorIndex;
 
@@ -350,7 +356,7 @@ if (canvas3D) {
         trigger: 'body',
         start: 'top top',
         end: () => '+=' + getSequenceScrollDistance(),
-        scrub: window.matchMedia('(max-width: 768px)').matches ? 0.35 : 0.08,
+        scrub: window.matchMedia('(max-width: 768px)').matches ? 0.12 : 0.08,
         pin: false,
       },
       onUpdate: function () {
