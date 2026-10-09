@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════
-   ALOK KUMAR — Premium 3D Scroll Sequence Engine
-   Canvas frame scrubbing + GSAP + Lenis
+   ALOK KUMAR — Scroll Sequence Engine
+   Video scrubbing + GSAP + Lenis
    ═══════════════════════════════════════════════════ */
 
 // ── INIT GSAP PLUGINS ──────────────────────────────
@@ -13,7 +13,7 @@ if (typeof Draggable !== 'undefined') {
 let lenis;
 if (typeof Lenis !== 'undefined') {
   lenis = new Lenis({
-    duration: 1.2,
+    duration: 0.8,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     direction: 'vertical',
     gestureDirection: 'vertical',
@@ -130,10 +130,10 @@ if (scrollVideo) {
   const loader = document.getElementById('loader');
   const loaderCounter = document.getElementById('loader-counter');
 
-  function waitForVideoMetadata() {
+  function waitForVideoFrame() {
     return new Promise((resolve) => {
       const cleanup = () => {
-        scrollVideo.removeEventListener('loadedmetadata', onLoaded);
+        scrollVideo.removeEventListener('loadeddata', onLoaded);
         scrollVideo.removeEventListener('error', onError);
       };
       const onLoaded = () => {
@@ -146,14 +146,13 @@ if (scrollVideo) {
         resolve(false);
       };
 
-      if (scrollVideo.readyState >= 1) {
+      if (scrollVideo.readyState >= 2) {
         resolve(true);
         return;
       }
 
-      scrollVideo.addEventListener('loadedmetadata', onLoaded);
+      scrollVideo.addEventListener('loadeddata', onLoaded);
       scrollVideo.addEventListener('error', onError);
-      scrollVideo.load();
     });
   }
 
@@ -177,112 +176,78 @@ if (scrollVideo) {
       });
     }
 
-    // Scrub the video over the three homepage sections; scroll position is its timeline.
+    // Play the video once on the first downward scroll; reset only at the page top.
     const scrollSections = gsap.utils.toArray('.scroll-section');
-    if (Number.isFinite(scrollVideo.duration) && scrollVideo.duration > 0) {
-      gsap.to(scrollVideo, {
-        currentTime: scrollVideo.duration,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.scroll-sequence',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true,
-          invalidateOnRefresh: true,
+    scrollVideo.pause();
+    let lastScrollY = window.scrollY;
+    let playbackStarted = false;
+
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY <= 0) {
+        if (playbackStarted || scrollVideo.currentTime > 0) {
+          scrollVideo.pause();
+          scrollVideo.currentTime = 0;
         }
-      });
-    }
+        playbackStarted = false;
+      } else if (currentScrollY > lastScrollY && !playbackStarted) {
+        playbackStarted = true;
+        scrollVideo.play().catch((error) => {
+          playbackStarted = false;
+          console.error('Failed to play homepage video:', error);
+        });
+      }
+
+      lastScrollY = currentScrollY;
+    }, { passive: true });
 
     // ── Scroll section text animations ──
-    scrollSections.forEach((section, i) => {
+    scrollSections.forEach((section) => {
       const title = section.querySelector('.scroll-section-title');
       const desc = section.querySelector('.scroll-section-desc');
 
-      // ── HERO SECTION (INDEX 0) SPECIAL HANDLING ──
-      if (i === 0) {
-        // Overrides original hidden CSS configurations instantly on boot
-        gsap.set([title, desc].filter(Boolean), { opacity: 1, y: 0 });
-
-        if (title) {
-          gsap.to(title, {
-            opacity: 0,
-            y: -30,
-            duration: 0.5,
-            ease: 'power2.in',
-            scrollTrigger: {
-              trigger: section,
-              start: 'bottom 40%',
-              toggleActions: 'play none none reverse',
-            }
-          });
-        }
-
-        if (desc) {
-          gsap.to(desc, {
-            opacity: 0,
-            y: -30,
-            duration: 0.5,
-            delay: 0.1,
-            ease: 'power2.in',
-            scrollTrigger: {
-              trigger: section,
-              start: 'bottom 40%',
-              toggleActions: 'play none none reverse',
-            }
-          });
-        }
-        return;
-      }
-
-      // ── SUBSEQUENT SECTIONS (1, 2, 3...) STANDARD LOGIC ──
       if (title) {
-        gsap.to(title, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 70%',
-            toggleActions: 'play none none reverse',
-          }
-        });
-
-        if (i < scrollSections.length - 1) {
-          gsap.to(title, {
-            opacity: 0,
-            y: -30,
-            duration: 0.5,
-            ease: 'power2.in',
+        gsap.fromTo(title,
+          { autoAlpha: 0, y: 30 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
             scrollTrigger: {
               trigger: section,
-              start: 'bottom 40%',
+              start: 'top 75%',
               toggleActions: 'play none none reverse',
+              invalidateOnRefresh: true,
             }
-          });
-        }
+          }
+        );
       }
 
       if (desc) {
-        gsap.to(desc, {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          delay: 0.15,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 60%',
-            end: 'bottom 30%',
-            toggleActions: 'play none none reverse',
+        gsap.fromTo(desc,
+          { autoAlpha: 0, y: 20 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.7,
+            delay: 0.15,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 75%',
+              toggleActions: 'play none none reverse',
+              invalidateOnRefresh: true,
+            }
           }
-        });
+        );
       }
     });
   }
 
   async function initVideoSequence() {
-    const videoLoaded = await waitForVideoMetadata();
+    const videoLoaded = await waitForVideoFrame();
     if (loaderCounter) loaderCounter.textContent = videoLoaded ? '100' : '!';
 
     if (loader) {
@@ -510,44 +475,6 @@ if (playgroundCanvas && typeof Draggable !== 'undefined') {
       this.target.style.zIndex = 1000;
     },
     onDragEnd: function () { this.target.style.zIndex = ''; },
-  });
-}
-
-// ══════════════════════════════════════════���═══════════
-// ── FOOTER SCROLL EFFECT (Background video translation) ─
-// ══════════════════════════════════════════════════════
-const footer = document.querySelector('footer.home-footer');
-const backgroundVideoContainer = document.querySelector('.canvas-container');
-
-if (footer && backgroundVideoContainer) {
-  gsap.registerEffect({
-    name: 'footerScroll',
-    effect: (targets, config) => {
-      return gsap.to(targets, config);
-    }
-  });
-
-  ScrollTrigger.create({
-    trigger: footer,
-    start: 'top bottom',
-    end: 'top top',
-    onUpdate: (self) => {
-      const progress = self.progress;
-      const translateAmount = progress * window.innerHeight * 0.3;
-      gsap.set(backgroundVideoContainer, {
-        y: -translateAmount,
-        overwrite: 'auto'
-      });
-    },
-    scrub: 0.8
-  });
-
-  window.addEventListener('resize', () => {
-    ScrollTrigger.getAll().forEach(trigger => {
-      if (trigger.vars.trigger === footer) {
-        trigger.refresh();
-      }
-    });
   });
 }
 
